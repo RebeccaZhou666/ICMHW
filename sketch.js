@@ -1,3 +1,37 @@
+var start = false;
+
+if(!start){
+	var startScreen = new Raster('start');
+	startScreen.position = view.center;
+// startScreen.sendToBack();
+}
+
+var play = document.getElementById("addPlay");
+play.onclick = function() { //为start按键添加点击事件处理程序
+            // startScreen.visible = false; //隐藏图片
+            startScreen.style.display = "none";
+            play.style.display = "none"; //隐藏按键
+            start = true;
+            console.log("hide");
+            //点击开始按键进入游戏界面
+
+            //render background
+            var backgroundimg = new Raster('background');
+			backgroundimg.position = view.center;
+
+
+			for (var i = 0; i < numBalls; i++) {
+				var position = Point.random() * view.size;
+				var vector = new Point({
+					angle: 360 * Math.random(),
+					length: Math.random() * 10
+					});
+				var radius = Math.random() * 60 + 60;
+				balls.push(new Ball(radius, position, vector));
+			}
+        }
+
+
 var width, height, center;
 var smooth = true;
 
@@ -5,19 +39,21 @@ var smooth = true;
 var mousePos = view.center / 2;
 var pathHeight = mousePos.y;
 
-var mouseInteract = 1;
 var audio = new Audio('ahhh.mp3');
 var audioD;
 var volume1 = 1;
 
+var balls = [];
+var numBalls = 3;
+
 //background color
 
- var rect = new Path.Rectangle({
-    point: [0, 0],
-    size: [view.size.width, view.size.height],
-});
-rect.sendToBack();
-rect.fillColor = 'white';
+//  var rect = new Path.Rectangle({
+//     point: [0, 0],
+//     size: [view.size.width, view.size.height],
+// });
+// rect.sendToBack();
+// rect.fillColor = '#FFB6C0';
 
 // ball -------------
 function Ball(r, p, v) {
@@ -31,27 +67,19 @@ function Ball(r, p, v) {
 	this.sidePoints = [];
 	this.hit = false;
 	this.time = 0;
-	this.path = new Path({
-		fillColor: {
-			 gradient: {
-            stops: ['yellow', 'red', 'blue']
-       		 },
-        	origin: (0,0),
-        	destination: (1600,800)
-		},
-		// blendMode: 'lighter'
-	});
+	this.path = new Path;
+	this.path.fillColor = 'white';
 
 	this.img = new Raster('normal');
 	this.img.position = this.point;
-	this.img.scale(r/120-0.15);
+	this.img.scale(r/120-0.3);
 	this.rotation = 0;
 	this.img.rotate(this.rotation);
 	this.img.visible = true;
 
 	this.img2 = new Raster('scream');
 	this.img2.position = this.point;
-	this.img2.scale(r/120-0.2);
+	this.img2.scale(r/120-0.3);
 	this.rotation2 = 0;
 	this.img2.rotate(this.rotation2);
 	this.img2.visible = false;
@@ -176,9 +204,6 @@ Ball.prototype = {
 	},
 
 
-	
-
-
 	getBoundOffset: function(b) {
 		var diff = this.point - b;
 		var angle = (diff.angle + 180) % 360;
@@ -206,17 +231,7 @@ Ball.prototype = {
 	}
 };
 
-var balls = [];
-var numBalls = 3;
-for (var i = 0; i < numBalls; i++) {
-	var position = Point.random() * view.size;
-	var vector = new Point({
-		angle: 360 * Math.random(),
-		length: Math.random() * 10
-	});
-	var radius = Math.random() * 60 + 60;
-	balls.push(new Ball(radius, position, vector));
-}
+
 
 
 function onFrame(event) {
@@ -225,10 +240,9 @@ function onFrame(event) {
 			balls[i].react(balls[j]);
 		}
 	}
-	for (var i = 0, l = balls.length; i < l; i++) {
+		for (var i = 0, l = balls.length; i < l; i++) {
 		balls[i].iterate();
-	}
-
+		}
 }
 
 function onMouseMove(event) {

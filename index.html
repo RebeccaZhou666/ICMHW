@@ -8,12 +8,74 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/paper.js/0.11.8/paper-full.min.js"></script>
      <!-- <script type="text/javascript" src="js/paper.js"></script> -->
     <!-- <link rel="stylesheet" type="text/css" href="style.css"> -->
+    <style>
+    	html {
+		font-family: monospace, sans-serif;
+		text-align: center;
+		width: 100%;
+		height: 100%;
+		}
+		button{
+			position: absolute;
+			top:600px;
+			left: 620px;
+			z-index: 20;
+
+	-webkit-appearance: button;
+	-webkit-writing-mode: horizontal-tb !important;
+	text-rendering: auto;
+	letter-spacing: normal;
+	word-spacing: normal;
+	display: inline-block;
+	align-items: flex-start;
+	text-transform: none;
+	text-indent: none;
+	text-shadow: none;
+	box-sizing: border-box;
+	font: 400 16px;
+	padding: 10px 10px 5px
+	border-width: 0;
+	border-style: transparent;
+	border-image: initial;
+}
+
+.play{
+	cursor: pointer;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 20px;
+	font-size: 40px;
+	display: inline-block;
+	width: 200px;
+	height: 120px
+	border: 0;
+	border-bottom: 2px solid #F2A6A6;
+	border-top:  2px solid #F2A6A6;
+	border-left: 2px solid #F2A6A6;
+	border-right: 2px solid #F2A6A6;
+	background-color: #F2A6A6;
+	font-color: #a35638;
+	font-weight: bold;
+	text-align: center;
+	transition: background-color 300ms ease-in-out;
+	font-family: monospace;
+}
+
+.play:hover {
+    color:#F2A6A6;
+    background-color: #122312;
+}
+	</style>
     <meta charset="utf-8" />
+
   </head>
   <body>
     <canvas id="myCanvas" width="1400", height="800"></canvas>
-    <img id ="normal" src="normal.png"  height="320" width="320">
-    <img id="scream" src="scream.png"  height="320" width="320">
+    <button class="play" id="addPlay">Play</button>
+    <img id ="normal" src="normal.png"  height="320" width="320" style="display: none;">
+    <img id="scream" src="scream.png"  height="320" width="320" style="display: none;">
+    <img id="background" src="background.png"  height="800" width="1400" style="display: none;">
+    <img id="start" src="startScreen.png"  height="800" width="1400" style="display: none;">
     <script type="text/paperscript" canvas="myCanvas", src="sketch.js"></script>
   </body>
 </html>
